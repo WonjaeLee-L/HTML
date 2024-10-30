@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    
+    body {
+        background-color: rgb(126, 197, 238);
+        width: 1024px;
+        /* height: 1024px; */
+    }
+    #header {
+        width: 1024px;
+        height: 50px;
+        text-align: center;
+        padding-top: 20px;
+        border: 5px outset rgb(74, 74, 231);
+    }
+    #navi {
+        width: 1024px;
+        height: 50px;
+        border: 5px outset rgb(74, 74, 231);
+    }
+    
+    .container {
+        display: flex;
+        width: 1024px;
+            
+               
+    }
+    .section1 {
+        width: 700px;
+        height: 200px;
+        background-image: url('img.PNG');
+        border: 5px outset rgb(74, 74, 231);
+        
+    }
+    .section2 {
+        width: 334px;
+        height: 180px;
+        border: 5px outset rgb(74, 74, 231);
+        padding-right: 20px;
+        padding-top: 20px;
+    }
+    .container2 {
+        display: flex;
+        width: 1024px;
+        /* margin: 40px; */
+        align-items: center;
+        flex-direction: row;
+        border: 5px outset rgb(74, 74, 231);
+        
+    }
+    .section {
+        background-color: rgb(127, 134, 196);
+        height: 200px;
+        width: 200px;
+        margin: 30px;
+        border: 5px outset rgb(74, 74, 231);
+        flex: 1;
+        
+    }
+    ul {
+        /* text-align: center; */
+    }
+    li {
+        float: left;
+        margin-left: 40px;
+    }
+    li a {
+        display: flex;
+        color: black;
+    }
+    li a:hover{
+        color: rgb(128, 158, 240);
+    }
+
+    .footer {
+        width: 100%;
+        height: 100px;
+        border: 5px outset rgb(74, 74, 231);
+    }
+</style>
+
+<body>
+    <div id="header">
+        <input type="text" style="border: 5px outset rgb(74, 74, 231);">
+        <input type="button" value="검색" style="border: 5px outset rgb(74, 74, 231);">
+        
+    </div>
+    <div id="navi">
+        <ul>
+            <li><a href="menu">menu</a></li>
+            <li><a href="menu">menu2</a></li>
+            <li><a href="menu">menu3</a></li>
+            <li><a href="menu">menu4</a></li>
+            <li><a href="menu">menu5</a></li>
+            <li><a href="menu">menu6</a></li>
+
+        </ul>
+    </div>
+    <div class="container">
+
+        <div class="section1">
+
+        </div>
+        <div class="section2" style="text-align: right;">
+            <span style="color: cadetblue;;">아이디</span><input type="text">
+            <br>
+            <span>패스워드</span><input type="text">
+            <br>
+            <input type="button" value="로그인">
+        </div>
+        
+    </div>
+
+<div class="container2">
+
+    <div class="section"> </div>
+    <div class="section"> </div>
+    <div class="section"> </div>
+</div>
+<div class="footer"></div>
+
+</body>
+</html>

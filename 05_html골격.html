@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+/* 1. body style 설정
+   2. 화면분할하려면? 
+         1) div
+         2) 시멘틱태그 - header, nav(메뉴), section(주요내용), aside(서브메뉴), footer(개발자 정보)
+            시멘틱 태그 : 공간을 분할하고 그 공간에 의미를 부여한 것.
+    
+   <div id = "header"> 로 하는거 대신 시멘틱 태그 header 사용한다.
+    그냥 div에 header로 이름붙이는건 개발자만 알고, document 자체적으로 이름붙이는 것일 뿐이다.
+    시멘틱태그를 쓰면 봇이 알기 쉽다. 구글 검색 등의 검색 엔진 노출이 쉬워진다.
+    3. display(or flex) - 모든 태그는 display라는 object를 가지고 있다.
+        1) block : 한 줄 차지 // 줄 바꿈(아래로 붙임) // 크기 조절 가능
+        2) inline : 자동으로 내용만큼 영역 차지 // 줄 바꿈X(body size 까지 옆으로 붙임)
+                    // 크기 조절 불가능
+        3) inline-block : 자동으로 내용만큼 영역 차지 // 줄 바꿈X(body size 까지 옆으로 붙임)
+                    // 크기 조절 가능
+    
+
+    
+    */
+
+    body {
+        width: 1280px;
+        height: 1024px;
+        background-color: beige;
+        border: 1px solid;
+        /* margin: 0px; */
+    }
+    header {
+        /* display: block; */
+        /* display: inline; */
+        /* display: inline-block; */
+        float: left;
+        width: 1280px;
+        height: 100px;
+        background-color: burlywood;
+        padding-left: 20px;
+
+    }
+    nav {
+        /* display: block; */
+        /* display: inline; */
+        display: inline-block;
+        width: 1280px;
+        height: 50px;
+        background-color: rgb(231, 163, 138);
+
+    }
+    section {
+        /* display: inline-block; 
+        여기를 float:left로 하면, aside와의 공백이 없어진다.;*/
+        float: left; 
+        width: 1000px;
+        height: 100px;
+        background-color: darkkhaki;
+    }
+    aside {
+        display: inline-block;
+        width: 280px;
+        height: 100px;
+        background-color: goldenrod;
+    }
+    /* header의 div만을 변경하도록 한다. header의 자식인 div만*/
+    header div {
+        width: 300px;
+        border: 1px, solid;
+        margin-left: 100px;
+        display: inline-block;
+        text-align: center;
+    }
+</style>
+<body>
+    <header>
+        <div><h2>이원재</h2></div>
+        <div><input type="text" placeholder="메롱"></div>
+    </header>
+    <nav>
+        <span>홈으로  공부하기  게임하기</span>
+    </nav>
+    <section>
+
+    </section>
+    <aside>
+
+    </aside>
+</body>
+</html>

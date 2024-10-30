@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        width: 1280px;
+        height: 1024px;
+        border: 1px solid;
+        margin: 0px; /* body 바깥쪽 document와의 공간 */
+    }
+    header {
+        /* display: inline-block; */
+        float: left;
+        width: 1280px;
+        height: 100px;
+        background-color: burlywood;
+        padding-top: 20px;
+        box-sizing: border-box; /* padding하면 크기가 늘어날 수 있다. 
+                                   이 설정으로 사이즈를 고정시킨다. */
+    }
+    nav {
+        width: 1280px;
+        height: 30px;
+        background-color: rgb(230, 230, 106);
+        /* display: inline-block; */
+        float: left;
+    }
+    section {
+        width: 70%;
+        height: 400px;
+        background-color: chocolate;
+        /* display: inline-block; */
+        float: left;
+        padding-top: 10px;
+        padding-left: 10px;
+        box-sizing: border-box;
+    }
+    aside {
+        width: 30%; /* display 대신, float left로 바꾸면 공백이 사라져서 30%로 가능 */
+        height: 400px;
+        /* display: inline-block; */
+        float: left;
+        background-color: darkorange;
+    }
+    #display {
+        display: inline-block;
+        width: 100%;
+        height: 200px;
+        background-color: darksalmon;
+    }
+    footer {
+        /* display: inline-block; */
+        float: left;
+        width: 100%;
+        height: 30px;
+        border: 1px dotted;
+        text-align: center; /* 글자 가운데 정렬 */
+    }
+    /* footer의 형제 tag는 header, nav, section, aside, div
+    부모 tag는 body. body의 부모는 document */
+    .header_01 { /* 여기 기준으로 margin : header와의 공백 */
+        width: 1000px;
+        height: 30px;
+        /* border: 1px solid; */
+        text-align: center;
+        margin: 0px auto; /* 가운데 정렬의 의미를 가진다 */
+    }
+    /* header_01 자식인 h2만 선택 */
+    .header_01 h2 {
+        display: inline; /* 깨진 배치를 맞추기 위해서 */
+        color: brown
+    }
+    /*(공부할 때는) bootstrap 보다는 관련 css를 검색해서 style에 적용하기*/
+    /* input css */
+    input[type=text] {
+        width: 500px;
+        height: 20px;
+        font-size: 15px;
+        border: 0;
+        border-radius: 15px;
+        outline: none;
+        padding-left: 10px;
+        background-color: rgb(233, 233, 233);
+    }
+    input[type=submit] {
+        /* position: absolute; */
+        top: 5px;
+        bottom: 5px;
+        right: 5px;
+        border-radius: 15px;
+    }
+    /* nav css */
+    nav ul li {
+        display: inline-block; /* 기본 세로로 되어있는건 줄바꿈이 기본 세팅이어서 */
+        width: 100px;
+        border: 1px solid;
+        margin-left: 5px;
+        text-align: center;/* 위에가 떨어져 있다. ul을 확인 */
+    }
+    nav ul li:hover{
+        background-color: red;
+    }
+    nav ul {
+        /* border: 1px solid; 영역 자체가 margin-top이 공간이 있다. */
+        margin-top: 3px;
+    }
+    .display_01 {
+        width: 24%;
+        height: 150px;
+        margin-left: 10px;
+        float: left;
+        border: 1px solid;
+        margin-top: 10px;
+    }
+
+</style>
+<body>
+    <!-- <div id = "header"></div> -->
+    <header><!-- 시멘틱 태그 -->
+        <div class="header_01">
+            <h2>냠냠 프로그램 !</h2>
+        </div>
+        <div class="header_01">
+            <!-- 검색창을 만들때는 꼭 form tag에 action, method로 -->
+            <form action="" method="">
+                <input type="text" size="50">
+                <input type="submit" value="search">
+            </form>
+        </div>
+    </header> 
+    <nav>
+        <ul>    <!-- 목록 태그 ul의 자식이 4개. span은 ul의 자손 -->
+            <li><span>홈으로</span></li>
+            <li><span>집으로</span></li>
+            <li><span>학교로</span></li>
+            <li><span>침대로</span></li>
+        </ul>
+    </nav>
+    <section>
+        <div>
+            <span>오늘의 그림</span>
+            <!-- 개발자는 src에서 상대경로(현재 위치(.)에 따라 결정)와
+                 절대경로(경로를 루트(시작점)부터 지정)를 숙지한다. 
+                 이미지 주소는 로컬에 있는 이미지나 웹에 있는 이미지 모두 가능하다. -->
+                 <img src="./img/image.jpg" style="width: 30%;">
+                 <img src="./img/image2.jpg"style="width: 30%;">
+                 <!-- 상대경로 지정 방식 >> 현재 파일의 위치에서 img 하위 디렉토리로 가고, 거기서 로딩-->
+                 <!-- <img src="C:\Data\html\img\image.jpg>" 이게 절대경로, 상대경로로 프로그램 개발-->
+                
+
+        </div>
+    </section>
+    <aside>로그인 공간
+        
+    </aside>
+    <div id="display">
+        <div class="display_01">
+                <h3>짬뽕</h3>
+                <hr>
+                <p>먹고싶다.</p>
+        </div>
+        <div class="display_01">
+                <h3>탕수육</h3>
+                <hr>
+                <p>먹고싶다.</p>
+        </div>
+        <div class="display_01">
+                <h3>마라탕</h3>
+                <hr>
+                <p>먹고싶다.</p>
+        </div>
+        <div class="display_01">
+                <h3>졸료</h3>
+                <hr>
+                <p>자고싶다.</p>
+        </div>
+    </div>
+    <footer>개발자 정보</footer>
+
+</body>
+</html>
