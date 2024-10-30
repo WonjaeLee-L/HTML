@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+</head>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Yeon+Sung&display=swap');
+    :root {
+        /* --text-color: black; */
+    }
+    body {
+        width: 1280px;
+        height: 1024px;
+        margin: 0px;
+        padding: 0px;
+        font-family: "Yeon Sung", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+        
+    }
+    header {
+        float: left;
+        width: 100%;
+        height: 50px;
+        background-color: black;
+        
+    }
+    .main {
+        height: 100%;
+        width: 40%;
+        float: left;
+    }
+    .logo {
+        float: left;
+    }
+    .right {
+        width: 50%;
+        height: 100%;
+        text-align: right;
+        display: inline-block;
+    }
+    nav {
+        float: left;
+        background-image: url(/img/image111.JPG);
+        width: 100%;
+        height: 100px;
+    }
+    header ul {
+        text-align: right;
+        padding-right: 100px;
+        box-sizing: border-box;
+    }
+    header ul li {
+        display: inline-block;
+        margin-top: 0px auto;
+        width: 50px;
+    }
+    section {
+        width: 75%;
+        height: 500px;
+        float: left;
+        margin: 0px;
+        padding: 0px;
+    }
+    section div {
+        width: 33%;
+        height: 500px;
+        float: left;
+    }
+    footer {
+        width: 100%;
+        height: 50px;
+        float: left;
+        background-color: black;
+    }
+    aside {
+        width: 25%;
+        height: 500px;
+        background-image: url(/img/image222.JPG);
+        float: left;
+    }
+    li a {
+        text-decoration: none;
+        color: yellow;
+    }
+    li {
+        list-style: none;
+        text-decoration: none;
+        color: yellow;
+        float: left;
+        margin-left: 50px;
+    }
+    li a:hover {
+        color: red;
+    }
+    input[type=text] {
+        height: 30px;
+        width: 200px;
+        margin-right: 10px;
+        border-radius: 10px;
+        background-color: rgb(251, 255, 12);
+        background-size: 37px;
+        padding-right: 20px ;
+        border-color: rgb(255, 239, 21);
+    }
+    input[type=password] {
+        height: 30px;
+        width: 200px;
+        margin-right: 10px;
+        border-radius: 10px;
+        background-color: rgb(251, 255, 12);
+        background-size: 37px;
+        padding-right: 20px ;
+        border-color: rgb(255, 239, 21);
+    }
+    input[type=button] {
+        font-family:  "Yeon Sung", system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        border-radius: 10px;
+        height: 30px;
+        width: 50px;
+        background-color: rgb(251, 255, 12);
+        border-color: rgb(255, 239, 21);
+    }
+    table {
+        width: 300px;
+        height: 100px;
+    }
+    td {
+        text-align: center;
+        border-radius: 10px;
+        background-color: rgb(251, 255, 12);
+        border-color: rgb(255, 239, 21);    
+    }
+    td:hover {
+        background-color: black;
+    }
+    table {
+        margin-left: 8px;
+    }
+    .hello {
+        float: left;
+        color:white;
+        font-size: 50px;
+    }
+    
+</style>
+<body>
+    <script>alert("어서오세요");</script>
+    <header>
+        <ul>
+            <li><a href="intro.html">문서</a></li>
+            <li><a href="#">이원재</a></li>
+            <li><a href="#">이원재</a></li>
+            <li><a href="#">이원재</a></li>
+            <li><a href="#">이원재</a></li>
+            <li><a href="#">이원재</a></li>
+        </ul>
+    </header>
+    <nav>
+        <div class="main">
+            <div class="logo"><a href=""><img src="img/image4.JPG" alt=""></a></div>
+            <div class="hello" style="margin-top: 15px; margin-left: 20px;">안녕하세요</div>
+        </div>
+        <div class="right">
+            <form action="" method="">
+            <input type="button" value="검색">
+            <input type="text" size="50" value="">
+            </form>
+        </div>
+    </nav>
+    <section>
+        <div><img src="/img/image3333.JPG" alt="" height="500px"></div>
+        <div><img src="/img/image2222.JPG" alt="" height="500px"></div>
+        <div><img src="img/image1111.jpg" alt="" height="500px"></div>
+    </section>
+    <aside>
+        <table>        
+            <tr><td>아이디</td><td colspan="2"><input type="text"></td></tr>
+            <tr><td>비밀번호</td><td colspan="2"><input type="password"></td></tr>
+         </table>
+        <ul style="text-align: right; margin-right: 10px;">
+            <td> 
+                <input type="button" onclick="welcomMessage()" value="welcome">
+            </td>
+            <td>
+                <input type="button" src="hello.js">
+            </td>
+        </ul>
+    </aside>
+    <footer>
+    <ul>
+        <li><a href="https://github.com/WonjaeLee-L">깃허브 바로가기</a></li>
+        <li>이원재</li>
+        <li>01028182716</li>
+    </ul>
+</footer>
+
+</body>
+</html>
