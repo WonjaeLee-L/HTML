@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+input[type=text] {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 20px;
+    width: 150px;   
+    height: 30px;
+    box-sizing: border-box;
+    display: block;
+}
+#control {
+    margin: 100px;
+    width: 187px;
+    height: 400px;
+    border: 1px solid;
+    background-color: blanchedalmond;
+    /* box-sizing: border-box; */
+}
+/* div {
+    background-color: white;
+    margin: 5px;
+    float: left;
+    width: 50px;
+    height: 50px;
+    border: 1px solid;
+    text-align: center;
+    padding-top: 10px;
+    box-sizing: border-box;
+    
+} */
+/* input[type=button] {
+    background-color: rgb(253, 184, 33);
+    margin: 5px;
+    float: left;
+    width: 50px;
+    height: 50px;
+    border: 1px solid;
+    text-align: center;
+    padding-top: 10px;
+    /* box-sizing: border-box; */
+    /* }  */
+button[type=button] {
+    /* background-color: rgb(253, 184, 33); */
+    margin: 5px;
+    float: left;
+    width: 50px;
+    height: 50px;
+    /* border: 1px solid; */
+    text-align: center;
+    padding-top: 10px;
+    
+}
+button[id=cal] {
+    /* justify-self: center; */
+    display: block;
+    width: 100px;
+    height: 30px;
+    /* background-color: rgb(153, 17, 17); */
+}
+</style>
+<body>
+    <h1>dd</h1>
+    <div id="control">
+        <!-- <form action="goServer" method="get"> -->
+        <input type="text" id="text_cal">
+        <input type="text" id="result" style="margin-top: 0px; width: 100px;">
+        <button type="button" onclick="cal()" value="1">1</button>
+        <button type="button" onclick="cal()" value="2">2</button>
+        <button type="button" onclick="cal()" value="3">3</button>
+
+        <button type="button" onclick="cal()" value="4">4</button>
+        <button type="button" onclick="cal()" value="5">5</button>
+        <button type="button" onclick="cal()" value="6">6</button>
+
+        <button type="button" onclick="cal()" value="7">7</button>
+        <button type="button" onclick="cal()" value="8">8</button>
+        <button type="button" onclick="cal()" value="9">9</button>
+
+        <button type="button">+</button>
+        <button type="button">-</button>
+        <button type="button">*</button>
+
+        <button type="button" id="cal">=</button>
+
+
+        <!-- <input type="button" value="1" id="2" onclick="cal()"> -->
+        <!-- </form> -->
+    </div>
+    
+</body>
+<script>
+    function cal() {
+        for(var i=0;i<9;i++) {
+            if(getElementsByTagName('button')[i].value==i+1){
+                var d = document.getElementsByTagName('button')[0].value;
+                var b = document.querySelector('#text_cal');
+                b.value += d;                
+
+            }
+        }
+        
+    }
+
+</script>
+
+</html>
