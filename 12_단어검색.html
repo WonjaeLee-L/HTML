@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #abcd {
+        width : 600px;
+    }
+    .swordspan{
+        background-color:aqua;
+    }
+    #yellow {
+        background-color: chartreuse;
+    }
+    
+
+</style>
+<script>
+    function sfun(){
+        var w = document.getElementById("abc").innerHTML;  // 본문을 저장할 변수 선언
+        var sw = document.getElementById("sword").value;   // 검색어를 저장할 변수 선언  
+        var result = document.getElementById("abc");
+        var yellow = document.getElementById("yellow");
+        let d = 0;
+        const split = w.split(" ");
+        let e = document.getElementById('ff');
+        // console.log(split[0]);
+        // console.log(sw);
+        for(let i=0; i<split.length; i++) {
+            if(split[i].includes(sw)) {
+                // 숫자
+                d++;
+                
+                // 배경색
+                let re = split[i];
+                // w = w.replace(re, '<test>')
+                    yellow.innerText = re;
+                    let zzz = yellow.innerText
+                    // result.innerText = w
+                    console.log(zzz)
+                    const jwjw = zzz.fontcolor("red")
+                    let lll = document.getElementById("yellow").innerHTML
+                    // zzz.fontcolor(yellow)
+                    w = w.replace(re, jwjw)
+                //    result.innerText = w.replace(re, jwjw)
+                    // w = w.replace(re, zzz)
+                    // result.innerText = w.replace(re, zzz)
+                    // yellow.innerText = re;
+                    result.innerText = w
+                    
+                    // const jj = w.split("sw");
+                    // for(let i=0;i<jj.length;i++) {
+                        //     w = jj[i] + sw;
+                    
+                    // }
+                }
+            }
+            e.value = d;
+            
+            // console.log(w)
+        console.log(yellow.innerText);
+    }
+        
+    
+</script>
+
+<body>
+<div id="abcd">
+<span id="abc">
+주말 이틀 연속 코로나19 하루 신규 확진자가 10만명대를 
+기록하는 등 유행 규모가 감소세를 이어갔다. 
+정부가 방역·의료체계의 일상회복을 
+목표로 한 ‘포스트 오미크론 대응체계’를 준비하는 가운데 
+11일부터는 보건소 선별진료소와 임시선별진료소에서 코로나19 신속항원검사가 중단된다.
+</span>
+<span id="yellow"></span>
+<span id="red">red</span>
+<br>
+찾을 문자열 <input type="text" id="sword"> 
+<input type="button" onclick="sfun()" value="검색">
+</span>
+<input type="text" id="ff">
+</div>   
+</html>
+
+// <!-- 
+
+// 과제1 : 검색어가 모두 몇개인지 카운팅하시오
+// 과제2 : 검색어는 배경을 노락색으로 색칠하세요.
+
+
+// -->

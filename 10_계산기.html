@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .btn {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 1px solid;
+    }
+</style>
+<body>
+    <h2>계산기</h2>
+    수식 : <span id="k"></span><br><br>
+    <div class="btn" onclick="cal(1)">1</div>
+    <div class="btn" onclick="cal(2)">2</div>
+    <div class="btn" onclick="cal(3)">3</div><br>
+    <div class="btn" onclick="cal(4)">4</div>
+    <div class="btn" onclick="cal(5)">5</div>
+    <div class="btn" onclick="cal(6)">6</div><br>
+    <div class="btn" onclick="cal(7)">7</div>
+    <div class="btn" onclick="cal(8)">8</div>
+    <div class="btn" onclick="cal(9)">9</div><br>
+    <div class="btn" onclick="cal(0)">0</div>
+    <div class="btn" onclick="cal('+')">+</div>
+    <div class="btn" onclick="cal('-')">-</div><br>
+    <div class="btn" onclick="cal('*')">*</div>
+    <div class="btn" onclick="cal('/')">/</div>
+    <div class="btn" onclick="cal('=')">=</div><br>
+    <div class="btn" onclick="cal('ac')" style="width: 165px;">ac</div>
+</body>
+</html>
+<script>
+    function cal(a) {
+        // alert(a)
+        if(a == 'ac') {
+            let ab = document.getElementById('k');
+            ab.innerText = 0;
+        }else if(a == '=') {
+            let ab = document.getElementById('k');
+            let c = ab.innerText
+            ab.innerText = eval(c);
+        } else {
+            let ab = document.getElementById('k'); // 객체를 통으로 가져온다.
+            ab.innerText = ab.innerText + a;
+             // input type은 value, tag는 innerText/Html
+            // html은 html tag를 넣을 수 있고, innterText는 text만 인식
+            // alert(ab.innerText)
+
+        }
+    }
+</script>

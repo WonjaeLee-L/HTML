@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- 알고리즘 정의
+        순서 : 1. html 요소 구성
+               2. 동적 데이터 처리(js)
+               (1). 키를 클릭하면 text에 수식으로 만들어진다.
+                   a. 키를 클릭하면 Js 호출
+                   b. 호출 된 함수는 키의 값을 가져온다.
+                   c. 가져온 키로 text에 수식을 만든다.
+               (2). 키 중에 '='을 클릭하면 수식을 계산한다.
+    -->
 </head>
 <style>
 input[type=text] {
@@ -21,48 +30,20 @@ input[type=text] {
     height: 400px;
     border: 1px solid;
     background-color: blanchedalmond;
-    /* box-sizing: border-box; */
 }
-/* div {
-    background-color: white;
-    margin: 5px;
-    float: left;
-    width: 50px;
-    height: 50px;
-    border: 1px solid;
-    text-align: center;
-    padding-top: 10px;
-    box-sizing: border-box;
-    
-} */
-/* input[type=button] {
-    background-color: rgb(253, 184, 33);
-    margin: 5px;
-    float: left;
-    width: 50px;
-    height: 50px;
-    border: 1px solid;
-    text-align: center;
-    padding-top: 10px;
-    /* box-sizing: border-box; */
-    /* }  */
 button[type=button] {
-    /* background-color: rgb(253, 184, 33); */
     margin: 5px;
     float: left;
     width: 50px;
     height: 50px;
-    /* border: 1px solid; */
     text-align: center;
     padding-top: 10px;
-    
+   
 }
 button[id=cal] {
-    /* justify-self: center; */
     display: block;
     width: 100px;
     height: 30px;
-    /* background-color: rgb(153, 17, 17); */
 }
 </style>
 <body>
@@ -88,24 +69,14 @@ button[id=cal] {
         <button type="button">*</button>
 
         <button type="button" id="cal">=</button>
-
-
-        <!-- <input type="button" value="1" id="2" onclick="cal()"> -->
         <!-- </form> -->
     </div>
-    
 </body>
 <script>
     function cal() {
-        for(var i=0;i<9;i++) {
-            if(getElementsByTagName('button')[i].value==i+1){
                 var d = document.getElementsByTagName('button')[0].value;
                 var b = document.querySelector('#text_cal');
-                b.value += d;                
-
-            }
-        }
-        
+                b.value += d;
     }
 
 </script>

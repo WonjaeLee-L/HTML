@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .btn {
+        width: 50px;
+        height: 30px;
+        border: 1px solid;
+        display: inline-block;
+    }
+</style>
+<body>
+    <h2>오늘의 메뉴</h2>
+    <div class="btn" >버튼1</div>
+    <div class="btn">버튼2</div>
+    <input type="text" id="text">
+</body>
+</html>
+<script>
+    document.getElementsByClassName("btn")[0].addEventListener('click',()=>{c()})
+    
+    function c() {
+        let a = document.getElementById('text').value;
+        // let b = a.innerText
+        let c = document.getElementsByTagName('h2')[0];
+        
+        c.innertext = a;
+        // c = a.value;
+        console.log(a)
+        
+    }
+</script>

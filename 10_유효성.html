@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form action="">
+            <span>ID</span><input type="text" id="id"><!--js 에서 element를 id로 지정해서 가져오기 위해서 id 지정 -->
+            <span>PASSWORD</span><input type="text" id="pwd"><!--js 에서 element를 id로 지정해서 가져오기 위해서 id 지정 -->
+            <input type="button" value="전송" onclick="test()">
+            <!-- 전송 눌렀을 때, 유효성 체크하기 위해서 js언어를 사용한다.-->
+        
+        
+        </form>
+    </div>
+</body>
+<script>
+    function test(){
+        let id = document.getElementById('id').value;
+        /* getbytagname, class는 object가 하나여도 배열로 가져온다. 얘는 object 하나 가져옴*/
+        let pwd = document.getElementById('pwd').value;
+        /* getbytagname, class는 object가 하나여도 배열로 가져온다. 얘는 object 하나 가져옴*/
+        /* input 관련 tag는 .value로 가져온다. */
+        // alert(id+"_"+pwd);
+        // 테스트
+        // console.log(id.length);
+        // 테스트(f12 눌러서 확인)
+        if(id.length < 8) {
+            alert('id는 8글자 이상')
+            return  // id에서 걸리면 pwd 경고창은 안뜨도록 return 처리 한다.
+            // 여기서 작성한걸 서버로 옮기기 전에 유효성을 체크하면 서버에 부담이 적음, Spring까지 보낼게 아니라, js에서 id, pwd 유효성
+            // 체크를 많이 한다. client가 사용하는 화면에서 js로 체크한다.
+        }
+        if(pwd.length < 4) {
+            alert('pwd는 4글자 이상')
+            return
+        }
+
+    }
+</script>
+</html>

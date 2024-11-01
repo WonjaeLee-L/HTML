@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .btn {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 1px solid;
+        background-color: bisque;
+    }
+</style>
+<body>
+    <h2>계산기</h2>
+    수식 : <span id="k"></span><br><br>
+    <div class="btn">1</div>
+    <div class="btn">2</div>
+    <div class="btn">3</div><br>
+    <div class="btn">4</div>
+    <div class="btn">5</div>
+    <div class="btn">6</div><br>
+    <div class="btn">7</div>
+    <div class="btn">8</div>
+    <div class="btn">9</div><br>
+    <div class="btn">0</div>
+    <div class="btn">+</div>
+    <div class="btn">-</div><br>
+    <div class="btn">*</div>
+    <div class="btn">/</div>
+    <div class="btn">=</div><br>
+    <div class="btn" style="width: 165px;">ac</div>
+</body>
+</html>
+<script>
+    // 이벤트 처리를 위한 리스너 : 이벤트 리스너
+    //    지금 사용해 본 것은 : click, change
+    //    마우스 동작은 : mouseup, mousedown
+    //    키보드 동작도 있다.
+    // 리스너를 등록하는 방법은 크게 2가지
+    // 1. html 태그에서 함수를 지정하는 방법 10_계산기.html
+    // 2. js에서 리스너에 등록하는 방법 >> 여기서 하는 방법.
+    
+    // 함수 영역이 아니다. 문서가 로딩 될 때,
+    // 여기서 작성하는 코드는 실행이 된다는 의미
+    // 함수로 작성한 코드는 콜이 될 때, 실행되는 것.
+
+    // 리스너 등록<콜백 함수>
+    // document.getElementsByClassName("btn")[0].addEventListener('click',ttt)
+    // function ttt() {
+    //     alert("aaa")
+    // }
+    // click이라는 이벤트가 발생할 때, ttt에게 넘긴다.(콜백함수 형태)
+    // 변수명을 넣으면 그 변수명이 메서드로 실행된다.
+    // 이렇게 쓰지 않고 아래처럼 람다식으로 사용
+
+    // 리스너 등록<람다식 활용>
+    // 이벤트 등록, 이벤트 처리 시, 일반적으로 람다식을 많이 사용한다.
+    // 람다식은 함수를 간결하게 표현한 것이다.
+        // - 코드를 여러 줄 처리하기 위해
+        // - 함수로 묶어서 정의하는 경우,
+        // - 코드의 재사용성보다는 간단한 기능정의에 포커스를 두는 경우 사용(일회성)
+    // document.getElementsByClassName("btn")[0].addEventListener('click',()=>{cal(1)})
+    // 클릭 이벤트를 람다식으로 사용했는데 람다식에서 다시 함수를 호출
+    // document.getElementsByClassName("btn")[1].addEventListener('click',ttt)
+    // 콜백함수 활용
+    // function ttt() {
+    //     alert("aaa")
+    // }    
+    // document.getElementsByClassName("btn")[2].addEventListener('click',()=> {
+                                                                        //     alert("tt aaa")
+                                                                        // })
+    // 람다식에서 click에 대한 정의를 한 것 
+    // document.getElementsByClassName("btn")[3].addEventListener('click',
+    // ()=> {
+    //     alert("aaaa")
+    // })
+    // 계산기에서 모든 버튼은 이벤트에 등록되어야 한다.
+    // html에서 onclick을 하던, js에서 리스너 등록을 해야 한다.
+    // 이번 예제는 js에서 리스너를 등록 한다.
+    var allBtn = document.getElementsByClassName("btn")
+    for(let i=0; i<allBtn.length; i++) {
+        // console.log(allBtn[i]);
+        let s = allBtn[i].innerHTML
+        allBtn[i].addEventListener('click',()=>{
+                                                cal(s)
+                                            })
+    }
+
+
+
+
+
+
+    function cal(a) {
+        // alert(a)
+        if(a == 'ac') {
+            let ab = document.getElementById('k');
+            ab.innerText = 0;
+        }else if(a == '=') {
+            let ab = document.getElementById('k');
+            let c = ab.innerText
+            ab.innerText = eval(c);
+        } else {
+            let ab = document.getElementById('k'); // 객체를 통으로 가져온다.
+            ab.innerText = ab.innerText + a;
+             // input type은 value, tag는 innerText/Html
+            // html은 html tag를 넣을 수 있고, innterText는 text만 인식
+            // alert(ab.innerText)
+
+        }
+    }
+</script>
