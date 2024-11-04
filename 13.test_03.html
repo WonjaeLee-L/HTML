@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개발자 송재완</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <h1>menu</h1>
+    <hr>
+    <span id="info"></span>
+    <br>
+    <h1></h1>
+    <span>메뉴선택</span>
+    <input type="text" id="inputMenu">
+    <span> 수량입력</span>
+    <input type="text" id="inputCnt">
+    <input type="button" id="orderBtn" value="주문">
+    <br>
+    <span>주문정보</span>
+    <input type="button" value="삭제" onclick="deleteMenu()">
+    <br>
+    <div id="orderInfo"></div>
+</body>
+
+</html>
+<script>
+    let menu = ["자장면", "짬뽕", "탕수육", "볶음밥", "게살볶음밥"];
+    let menuIdx = 0;
+    $('#info').append(menu+"");
+
+    $('#orderBtn').on('click', () => {
+        let flag = false;   // 선택한 메뉴가 리스트에 있는지 없는지의 정보를 저장
+        for (v of menu) {
+            if ($('#inputMenu').val() == v) {
+                if ($('#inputCnt').val() == "") {
+                    alert("수량을 입력하세요.")
+                    break;
+                } else {
+                    confirm(`메뉴 : ${v}/수량 : ${$('#inputCnt').val()}`) ?
+                        (document.querySelector('#orderInfo').innerHTML +=
+                            `<span id="order${menuIdx}">
+                                <input type="checkbox" id="chk${menuIdx}">
+                                 메뉴 : ${v}/수량 : ${$('#inputCnt').val()}
+                                <br></span>`) : (null)
+                    flag = true;
+                    menuIdx++; 
+                    break;
+                }
+            }
+        }
+        if (!flag) {
+            alert("메뉴가 없습니다.")
+        }
+    })
+
+    const deleteMenu = function () {
+        for (i = 0; i <= menuIdx; i++) {
+            if ($(`#order${i}`).val() != null) {
+                if ($(`#chk${i}`).is(':checked')) {
+                    ($(`#order${i}`)).remove()
+                }
+            }
+
+        }
+    }
+</script>

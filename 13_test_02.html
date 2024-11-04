@@ -25,10 +25,38 @@
                 <th>선택</th><th>메뉴</th><th>수량</th>
             </tr>
         </table>
+        <button id="deleteBtn">선택삭제</button>
     </div>
     <hr>
 </body>
 <script>
+
+    // (1) onclick하면 위에 body에도 적고, script에도 적어야 해서 복잡하고, 왔다갔다 번거로움
+    // (2) addEventListener로 하면, 한 번에 처리 가능 >> 여기선 이 방식으로.
+    document.getElementById("deleteBtn").addEventListener('click',()=>{
+        // element를 지정하여, 이벤트 리스너 처리. 처리는 람다식으로 코딩
+        // alert("삭제")
+        // alert(orderList.rows.length);
+        for(let i=1; i<orderList.rows.length; i++){
+            // 첫번째 row에는 checkbox가 없으므로 1부터 시작한다.
+            // console.log(orderList.rows[i]);
+            // console.log(orderList.rows[i].cells[0].children[0].checked);
+            // row는 하나의 tr, cell은 하나의 td
+            if(orderList.rows[i].cells[0].children[0].checked){
+                orderList.deleteRow(i);
+                i--;    // i값이 없어져서 i를 줄인다.
+            }
+        }
+    });
+
+    // (3) jquery 방식 (설치는 cdn 방식으로)
+    // $('#deleteBtn').on('click',()=>{
+    // })
+
+
+
+
+
     var menu = ['자장면','볶음밥','탕수육']
     menu.push('군만두');    // 추가하는 메서드 >> 자바스크립트 배열은 가변
     var pan = document.getElementById('info');
