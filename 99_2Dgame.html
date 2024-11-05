@@ -12,12 +12,11 @@
         display: block;
     }
 
-
     #startBtn {
         margin-left: 190px;
         width: 100px;
         height: 50px;
-        background-color: burlywood;
+        /* background-color: burlywood; */
         color: red;
         border-color: burlywood;
     }
@@ -31,8 +30,11 @@
 
 </body>
 <script>
+    // 캔버스 가져오기
     var canvas = document.getElementById("myCanvas")
-    var ctx = canvas.getContext("2d");    // 그리기 위해 2D rendering context를 저장
+    // 그리기 위해 2D rendering context를 저장
+    var ctx = canvas.getContext("2d");
+
     // 공의 처음 위치 지정
     let x = canvas.width / 2;
     let y = canvas.height - 30;
@@ -41,58 +43,127 @@
     // 그리기 경로
     let dx = 2;
     let dy = -2;
-    // 패들 크기, 시작 위치
+    // 패들 크기, 시작 위치(paddle의 가장 왼쪽 기준)
     const paddleHeight = 10;
-    const paddleWidth = 40;
+    const paddleWidth = 100;
     let paddleX = (canvas.width - paddleWidth) / 2;
-    // 패들 컨트롤
+    // 패들 컨트롤을 위한 변수(이벤트리스너 함수에서 이용)
     let rightPressed = false;
     let leftPressed = false;
+    // 벽돌
+    const brickRowCount = 3;
+    const brickColumnCount = 5;
+    const brickWidth = 75;
+    const brickHeight = 20;
+    const brickPadding = 10;
+    // offset은 이벤트 대상 기준 좌표를 말할때의 표현으로, 이름 붙임
+    const brickOffsetTop = 30;
+    const brickOffsetLeft = 30;
+    // 2차원 배열 형태의 벽돌 만들기, 위에서 지정한 row, column의 수가 변화해도 만들 수 있도록 함
+    // 3행 5열의 배열을 만들고자 하지만, drawBricks() 함수에서 가로 방향으로 눕히도록 하므로
+    // 5행 3열의 형태로 먼저 생성
+    const bricks = [];
+    for (let c = 0; c < brickColumnCount; c++) {
+        bricks[c] = [];
+        for (let r = 0; r < brickRowCount; r++) {
+            // 벽돌 부수기 위해 상태값 설정
+            bricks[c][r] = { x: 0, y: 0, status: 1 };
+        }
+    }
+    let score = 0;
+    let lives = 3;
+    // clearInterval 함수를 이용하기 위해 변수 선언
+    // let interval = 0;
     // keydown시, keyDownHandler() 실행. keyup시, keyUpHandler 실행.
+    document.addEventListener("keydown", keyDownHandler);
+    document.addEventListener("keyup", keyUpHandler);
+    // 마우스 움직이면 mouseMoveHandler() 실행
+    document.addEventListener("mousemove", mouseMoveHandler);
+    // 시작 버튼
+    const btn = document.getElementById("startBtn");
 
+
+    // 게임 시작 함수
     function start() {
-        // 10ms마다 그림 그리기
-        setInterval(draw, 10);
+        // setInterval(function, delay)
+        // delay시간 마다 function 실행
+        // interval = setInterval(draw, 10);
+        // clearInterval 함수를 이용하기 위해 변수(interval)에 저장
+        btn.disabled = true;
+        draw();
     }
 
-    // 그리기 함수
+    // 메인 함수
     function draw() {
-        // 전부(0에서 width만큼, 0에서 height만큼) 삭제하여, 이동하는 것 처럼 하기
+        // 전부(0에서 width만큼, 0에서 height만큼) 삭제한다.
+        // dx, dy에 의해 새로 그려진 부분은 남아있고, 이전의 그려진 부분은 지워져서 이동하는
+        // 모습으로 표현
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawBall();
-        drawPaddle()
-
+        drawBricks();
+        drawPaddle();
+        drawScore();
+        drawLives();
+        collisionDetection();
         x += dx;
         y += dy;
         // 화면을 벗어날 경우. x, y 방향 각각 반대로 설정하여 벗어나지 않도록 함(반지름 고려)
         if (x + dx > canvas.width - ballRaius || x + dx < ballRaius) {
             dx = -dx;
         }
-        if (y + dy > canvas.height - ballRaius || y + dy < ballRaius) {
+        if (y + dy < ballRaius) {
             dy = -dy;
+            // 공이 아래에 닿으면 게임 종료
+        } else if (y + dy > canvas.height - ballRaius) {
+            // 단 paddle의 위에 있으면 튕기기(y축 이동 변경)
+            if (x >= paddleX && x <= paddleX + paddleWidth) {
+                dy = -dy;
+            } else {
+                lives--;
+                if (!lives) {
+                    alert("GAME OVER");
+                    // 페이지 갱신
+                    document.location.reload();
+                    // setInterval에 의해 생성한 타이머 작업 취소
+                    // clearInterval(interval);
+                    return;
+                } else {
+                    x = canvas.width / 2;
+                    y = canvas.height - 30;
+                    dx = 2;
+                    dy = -2;
+                    paddleX = (canvas.width - paddleWidth) / 2;
+                }
+            }
         }
-        // Math.min, Math.max 함수를 이용하여, paddle의 위치가 화면을 벗어나지 않도록 한다.
-        // Math.min에는 인자값을 canvas.width-paddleWidth을 주고, Math.min에는 0으로 준다.
-        // 예를 들어 leftPressed가 true인 경우, 왼쪽으로 7만큼 이동하더라도, 0보다 작을 경우
-        // 함수에 의해서 위치는 0이 되므로 paddle이 화면을 벗어나지 않는다.
+        // rightPressed, leftPressed 값을 키보드 인식에 따라 true, false로 통제하여
+        // true인 경우에만 paddleX의 값이 변경되도록 한다.
         if (rightPressed) {
+            // Math.min, Math.max 함수를 이용하여, paddle의 위치가 화면을 벗어나지 않도록 한다.
+            // Math.min에는 인자값을 canvas.width-paddleWidth을 주고, Math.min에는 0으로 준다.
+            // 예를 들어 leftPressed가 true인 경우, 왼쪽으로 7만큼 이동하더라도, 0보다 작을 경우
+            // 함수에 의해서 위치는 0이 되므로 paddle이 화면을 벗어나지 않는다.
             paddleX = Math.min(paddleX + 7, canvas.width - paddleWidth);
         } else if (leftPressed) {
             paddleX = Math.max(paddleX - 7, 0);
         }
+        // setInterval 대체
+        requestAnimationFrame(draw);
     }
+
+    // 공그리기
     function drawBall() {
         // 새 경로 시작 메서드
         ctx.beginPath();
-        // 원호 생성. (수평, 수직, 반지름, 시작각도, 끝각도)
+        // 원호 생성 (수평, 수직, 반지름, 시작각도, 끝각도)
         ctx.arc(x, y, ballRaius, 0, Math.PI * 2);
-
         // 색상 채우기(stroke으로 바깥만 가능)
         ctx.fillStyle = "#000000";
         ctx.fill();
         // 경로까지 직선 추가 메서드
         ctx.closePath();
     }
+
     // paddle 그리기
     function drawPaddle() {
         ctx.beginPath();
@@ -101,7 +172,9 @@
         ctx.fill();
         ctx.closePath();
     }
-    // paddle 움직이기
+
+    // 키보드리스너 함수
+    // 변수의 값을 true or false로 통제하여, draw()함수 내에서 paddleX를 변화시킨다.
     function keyDownHandler(e) {
         if (e.key === "Right" || e.key === "ArrowRight") {
             rightPressed = true;
@@ -117,9 +190,88 @@
         }
     }
 
-    document.addEventListener("keydown", keyDownHandler, false);
-    document.addEventListener("keyup", keyUpHandler, false);
+    // 마우스리스너 함수
+    function mouseMoveHandler(e) {
+        // clientX : 클라이언트 영역(브라우저 화면) 전체 기준 
+        // x는 마우스의 x축 너비
+        const x = e.clientX - canvas.offsetLeft;
+        // canvas 위에 존재할 경우.
+        if (x > 0 && x < canvas.width) {
+            // paddle의 x기준은 paddle의 x축 가장 왼쪽이므로, 마우스의 위치에서 절반 너비를 뺀다.
+            paddleX = x - paddleWidth / 2;
+        }
+    }
 
+    // 벽돌 그리기
+    function drawBricks() {
+        for (let c = 0; c < brickColumnCount; c++) {
+            for (let r = 0; r < brickRowCount; r++) {
+                // status 값이 1인 경우에만 화면에 그린다.
+                // 충돌하여 1이 아니게 변경된 경우 해당 벽돌은 표시되지 않음
+                if (bricks[c][r].status === 1) {
+                    // bricks[c][r]에서, r이 0으로 동일할 때, c가 0과 1이라고 하면
+                    // brickX 값이, c가 1일 때, brick의 크기만큼(가로+패딩) x축으로 이동한다.
+                    const brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+                    const brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+                    // 위의 두 변수를 벽돌의 x, y 좌표로 지정한다.
+                    // 3행 5열의 벽돌을 5행 3열로 지정한 상태에서 행이 열의 방향으로 놓이도록 하여
+                    // 원래 목표인 3행 5열로 배치하도록 함
+                    bricks[c][r].x = brickX;
+                    bricks[c][r].y = brickY;
+
+                    ctx.beginPath();
+                    ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                    ctx.fillStyle = "#0095DD";
+                    ctx.fill();
+                    ctx.closePath();
+                }
+            }
+        }
+    }
+
+    // 충돌 감지
+    function collisionDetection() {
+        for (let c = 0; c < brickColumnCount; c++) {
+            for (let r = 0; r < brickRowCount; r++) {
+                // 하나하나의 벽돌 변수 설정. 하나하나의 경우마다 아래 코드로 적용함
+                const oneBrick = bricks[c][r];
+                // 초기 상태의 벽돌
+                if (oneBrick.status === 1) {
+                    // 각 벽돌마다의 경우, 공의 x축 위치는 벽돌의 x 값 사이, y축 위치는 벽돌의 y 값
+                    // 사이에 존재한다면 충돌한 것으로 판단한다.
+                    if (x > oneBrick.x && x < oneBrick.x + brickWidth &&
+                        y > oneBrick.y && y < oneBrick.y + brickHeight) {
+                        // 상단에 충돌했을 때와 마찬가지로, dy값을 반대로 바꾼다.
+                        dy = -dy;
+                        // status를 1이 아닌 값으로 바꾸어 화면에 표시되지 않도록 한다.
+                        oneBrick.status = 0;
+                        score++;
+
+                        if (score === brickColumnCount * brickRowCount) {
+                            alert("YOU WIN");
+                            // 페이지 갱신
+                            document.location.reload();
+                            // setInterval에 의해 생성한 타이머 작업 취소
+                            // clearInterval(interval);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // 점수
+    function drawScore() {
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "#000000";
+        ctx.fillText(`Score: ${score}`, 8, 20);
+    }
+    function drawLives() {
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "#000000";
+        ctx.fillText(`Lives: ${lives}`, canvas.width - 65, 20);
+    }
 
 
 </script>
