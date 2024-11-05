@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    canvas {
+        background-color: #eee;
+        display: block;
+    }
+
+
+    #startBtn {
+        margin-left: 190px;
+        width: 100px;
+        height: 50px;
+        background-color: burlywood;
+        color: red;
+        border-color: burlywood;
+    }
+</style>
+
+<body>
+    <canvas id="myCanvas" width="480" height="320">
+    </canvas>
+
+    <button id="startBtn" onclick="start()">시작</button>
+
+</body>
+<script>
+    var canvas = document.getElementById("myCanvas")
+    var ctx = canvas.getContext("2d");    // 그리기 위해 2D rendering context를 저장
+    // 공의 처음 위치 지정
+    let x = canvas.width / 2;
+    let y = canvas.height - 30;
+    // 공 반지름 지정
+    let ballRaius = 10;
+    // 그리기 경로
+    let dx = 2;
+    let dy = -2;
+    // 패들 크기, 시작 위치
+    const paddleHeight = 10;
+    const paddleWidth = 40;
+    let paddleX = (canvas.width - paddleWidth) / 2;
+    // 패들 컨트롤
+    let rightPressed = false;
+    let leftPressed = false;
+    // keydown시, keyDownHandler() 실행. keyup시, keyUpHandler 실행.
+
+    function start() {
+        // 10ms마다 그림 그리기
+        setInterval(draw, 10);
+    }
+
+    // 그리기 함수
+    function draw() {
+        // 전부(0에서 width만큼, 0에서 height만큼) 삭제하여, 이동하는 것 처럼 하기
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBall();
+        drawPaddle()
+
+        x += dx;
+        y += dy;
+        // 화면을 벗어날 경우. x, y 방향 각각 반대로 설정하여 벗어나지 않도록 함(반지름 고려)
+        if (x + dx > canvas.width - ballRaius || x + dx < ballRaius) {
+            dx = -dx;
+        }
+        if (y + dy > canvas.height - ballRaius || y + dy < ballRaius) {
+            dy = -dy;
+        }
+        // Math.min, Math.max 함수를 이용하여, paddle의 위치가 화면을 벗어나지 않도록 한다.
+        // Math.min에는 인자값을 canvas.width-paddleWidth을 주고, Math.min에는 0으로 준다.
+        // 예를 들어 leftPressed가 true인 경우, 왼쪽으로 7만큼 이동하더라도, 0보다 작을 경우
+        // 함수에 의해서 위치는 0이 되므로 paddle이 화면을 벗어나지 않는다.
+        if (rightPressed) {
+            paddleX = Math.min(paddleX + 7, canvas.width - paddleWidth);
+        } else if (leftPressed) {
+            paddleX = Math.max(paddleX - 7, 0);
+        }
+    }
+    function drawBall() {
+        // 새 경로 시작 메서드
+        ctx.beginPath();
+        // 원호 생성. (수평, 수직, 반지름, 시작각도, 끝각도)
+        ctx.arc(x, y, ballRaius, 0, Math.PI * 2);
+
+        // 색상 채우기(stroke으로 바깥만 가능)
+        ctx.fillStyle = "#000000";
+        ctx.fill();
+        // 경로까지 직선 추가 메서드
+        ctx.closePath();
+    }
+    // paddle 그리기
+    function drawPaddle() {
+        ctx.beginPath();
+        ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+        ctx.fillStyle = "#000000";
+        ctx.fill();
+        ctx.closePath();
+    }
+    // paddle 움직이기
+    function keyDownHandler(e) {
+        if (e.key === "Right" || e.key === "ArrowRight") {
+            rightPressed = true;
+        } else if (e.key === "Left" || e.key === "ArrowLeft") {
+            leftPressed = true;
+        }
+    }
+    function keyUpHandler(e) {
+        if (e.key === "Right" || e.key === "ArrowRight") {
+            rightPressed = false;
+        } else if (e.key === "Left" || e.key === "ArrowLeft") {
+            leftPressed = false;
+        }
+    }
+
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
+
+
+
+</script>
+
+</html>
