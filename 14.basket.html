@@ -302,6 +302,36 @@
                 i--
             }
         }
+        // 금액 계산
+        let goodspri = document.getElementById("allGoods");
+        let dlv1 = document.getElementById("allDlv");
+        let totalPri = document.getElementById("allPri");
+        let sumP = 0;
+        let sumD = 0;
+        // alert(goodspri.innerHTML)
+        // alert(cart__list.rows[1].cells[3].children[0].innerHTML);
+        for (let i = 0; i < cart__list.rows.length; i++) {
+            let price = cart__list.rows[i].cells[3].innerHTML;
+            // let nPrice = Number(price);
+            let nPrice = ((parseInt)(price));
+            sumP += nPrice;
+
+            console.log(typeof(price));
+            console.log(typeof(nPrice));
+        }
+        goodspri.innerHTML = sumP;
+        
+        for (let i = 0; i < cart__list.rows.length; i++) {
+            let price = cart__list.rows[i].cells[4].innerHTML;
+
+            let nPrice = ((parseInt)(price));
+            sumD += nPrice;
+
+            // console.log(typeof(price));
+            // console.log(typeof(nPrice));
+        }
+        dlv1.innerHTML = sumD;
+        totalPri.innerHTML = sumP+sumD;
     }
 
     // 상품 추가
